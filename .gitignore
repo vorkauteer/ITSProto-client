@@ -1,0 +1,20 @@
+# Go build artifacts
+*.exe
+*.test
+/bin/
+/dist/
+
+# Local runtime/config secrets
+client.yaml
+*.key
+*.pem
+
+# IDE
+.vscode/
+.idea/
+
+dist/
+*.exe
+*.dll
+*.log
+.DS_Store

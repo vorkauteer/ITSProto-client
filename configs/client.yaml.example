@@ -1,0 +1,32 @@
+# ITSProto Windows client profile.
+# Copy to: C:\ProgramData\ITSProto\client.yaml
+
+server: "72.56.68.200:9443"
+token: "dev-token"
+device_id: "windows-client-1"
+
+# Load this manually from the server for now:
+# sudo pvpn-server -config /etc/pvpn/server.yaml -print-pub-key
+server_pub: "PASTE_SERVER_PUBLIC_KEY_HERE"
+
+# Supported values:
+# - transport-check: handshake/auth/ping only through pvpn-client.exe
+# - route: native Windows Wintun tunnel for route below
+# - full-tunnel: experimental Windows default-route mode
+mode: "route"
+route: "1.1.1.1/32"
+
+tun_name: "ITSProto"
+tun_cidr: "10.77.0.2/24"
+tunnel_ip: "10.77.0.2"
+gateway: "10.77.0.1"
+mtu: "1000"
+debug: "true"
+
+# Route tunnel mode. Requires Administrator privileges.
+command: "pvpn-client-wintun.exe"
+arguments: "-server {server} -token {token} -device {device_id} -server-pub {server_pub} -tun-name {tun_name} -tun-cidr {tun_cidr} -tunnel-ip {tunnel_ip} -gateway {gateway} -mtu {mtu} -route {route} {full_tunnel_arg} {debug_arg}"
+
+# Transport-only check, useful if Wintun is not installed yet:
+# command: "pvpn-client.exe"
+# arguments: "-server {server} -token {token} -device {device_id} -server-pub {server_pub} -ping-only"
